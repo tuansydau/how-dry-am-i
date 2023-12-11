@@ -7,6 +7,17 @@
   --background-start-rgb: 12, 12, 12;
   --background-end-rgb: 12, 12, 12;
 }
+
+/* width */
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #fff;
+  border-radius: 10px;
+}
+
 /* 
 @media (prefers-color-scheme: dark) {
   :root {

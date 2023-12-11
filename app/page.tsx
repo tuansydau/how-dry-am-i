@@ -31,10 +31,34 @@ function calculateHoursWasted(killCount: number) {
   return killCount / 70;
 }
 
+function calculateProfit(killCount: number) {
+  return ((killCount * 25561.89) / 1000000).toFixed(2);
+}
+
+// function printMoleImages(killCount: number) {
+//   const imageArray = new Array(killCount).fill(null);
+//   return (
+//     <div className="flex flex-wrap mx-4">
+//       {imageArray.map((_, index) => (
+//         // Use the index as a key to ensure each image has a unique identifier
+//         <img
+//           key={index}
+//           src={"/baby_mole.webp"}
+//           alt={`Image ${index}`}
+//           width={20}
+//           height={20}
+//         />
+//       ))}
+//     </div>
+//   );
+// }
+
 export default function Home() {
   const [killCount, setKillCount] = useState("...");
   const [noDropRate, setNoDropRate] = useState("...");
   const [hoursWasted, setHoursWasted] = useState("...");
+  const [profit, setProfit] = useState("...");
+  // const [moleImages, setMoleImages] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,11 +69,15 @@ export default function Home() {
       const hoursAtMole = calculateHoursWasted(await count).toFixed(2);
       //@ts-ignore
       setHoursWasted(hoursAtMole);
+      const profit = calculateProfit(count);
+      //@ts-ignore
+      setProfit(profit);
+      //@ts-ignore
+      // setMoleImages(printMoleImages(count));
     };
 
     fetchData();
   }, []);
-
   return (
     <div>
       <div className="-mt-8 flex flex-col justify-between items-center text-center w-full h-screen">
@@ -67,18 +95,33 @@ export default function Home() {
         </div>
         <DownArrows />
       </div>
-      <div className="flex flex-col justify-center items-center text-center w-full h-screen space-y-4">
-        {/* <div></div> */}
+      <div className="flex flex-col justify-center items-center text-center w-full h-[200vh] space-y-4">
         <div>
-          <div className="text-xl font-light">
-            Moo usually gets about 60 kills per hour, which means that he has
+          <div className="text-xl font-light mb-2">
+            Moo usually gets about 70 kills per hour, which means that he has
             spent
           </div>
           <div className="text-4xl">{hoursWasted} hours at mole.</div>
         </div>
-
-        {/* <DownArrows /> */}
       </div>
+      <div className="flex flex-col justify-center items-center text-center w-full h-screen space-y-4">
+        <div>
+          <div className="text-xl font-light mb-2">
+            Atleast it&apos;s not all bad though, throughout this grind Moo has
+            made
+          </div>
+          <div className="text-4xl">{profit} M in loot</div>
+        </div>
+      </div>
+      {/* <div className="flex flex-col justify-start items-center text-center w-full h-screen space-y-4">
+        <div>
+          <div className="text-xl font-light mt-8 mb-8">
+            Here&apos;s a visualization of just how many times Moo has killed
+            mole
+          </div>
+          <div className="flex flex-wrap">{moleImages}</div>
+        </div>
+      </div> */}
     </div>
   );
 }
