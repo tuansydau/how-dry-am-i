@@ -105,6 +105,13 @@ export default function Home() {
         </div>
       </div>
       <div className="flex flex-col justify-center items-center text-center w-full h-screen space-y-4">
+        <Image
+          className="mb-16"
+          src="/coins.webp"
+          alt=""
+          width={200}
+          height={200}
+        />
         <div>
           <div className="text-xl font-light mb-2">
             Atleast it&apos;s not all bad though, throughout this grind Moo has
