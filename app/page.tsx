@@ -101,7 +101,7 @@ export default function Home() {
             Moo usually gets about 70 kills per hour, which means that he has
             spent
           </div>
-          <div className="text-4xl">{hoursWasted} hours at mole.</div>
+          <div className="text-4xl">{hoursWasted} hours at mole</div>
         </div>
       </div>
       <div className="flex flex-col justify-center items-center text-center w-full h-screen space-y-4">
