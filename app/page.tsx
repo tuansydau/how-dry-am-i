@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 async function getKillCount() {
   // Using hardcoded number for now because I'm getting rate limited
@@ -26,8 +27,8 @@ function calculateDryRate(killCount: number) {
 }
 
 export default function Home() {
-  const [killCount, setKillCount] = useState("Loading...");
-  const [noDropRate, setNoDropRate] = useState("Loading...");
+  const [killCount, setKillCount] = useState("...");
+  const [noDropRate, setNoDropRate] = useState("...");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,9 +42,16 @@ export default function Home() {
   }, []);
 
   return (
-    <div>
-      <div>Moo has a mole kill count of {killCount}</div>
-      <div>The chance that Moo has gotten this unlucky is {noDropRate}%</div>
+    <div className="flex flex-col justify-center w-full h-screen space-y-2">
+      <div className="flex justify-center mb-16">
+        <Image src="/baby_mole.webp" alt="" height={200} width={200} />
+      </div>
+      <div className="flex justify-center text-4xl">
+        Moo has a mole kill count of {killCount}
+      </div>
+      <div className="flex justify-center">
+        The chance that Moo has gotten this unlucky is {noDropRate}%
+      </div>
     </div>
   );
 }
