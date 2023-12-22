@@ -6,7 +6,6 @@ import DownArrows from "@/components/DownArrows";
 import WatchIcon from "@/components/WatchIcon";
 
 async function getKillCount() {
-  // Using hardcoded number for now because I'm getting rate limited
   let playerData = await fetch(
     "https://api.wiseoldman.net/v2/players/moo shu pork",
     { headers: { "Content-Type": "application/json" } }
@@ -15,16 +14,9 @@ async function getKillCount() {
 
   //@ts-ignore
   return await playerData.latestSnapshot.data.bosses.giant_mole.kills;
-  // return 7061;
 }
 
 function calculateDryRate(killCount: number) {
-  // Drop rate formula
-  // If the drop rate is 1 in k, then the probability of getting the drop in n attempts is:
-  // p = 1-(1-1/k)**n
-  // !p = (1-1/k)**n
-  // Mole drop rate is 1/3000
-
   return ((1 - 1 / 3000) ** killCount * 100).toFixed(2);
 }
 
@@ -36,30 +28,11 @@ function calculateProfit(killCount: number) {
   return ((killCount * 25561.89) / 1000000).toFixed(2);
 }
 
-// function printMoleImages(killCount: number) {
-//   const imageArray = new Array(killCount).fill(null);
-//   return (
-//     <div className="flex flex-wrap mx-4">
-//       {imageArray.map((_, index) => (
-//         // Use the index as a key to ensure each image has a unique identifier
-//         <img
-//           key={index}
-//           src={"/baby_mole.webp"}
-//           alt={`Image ${index}`}
-//           width={20}
-//           height={20}
-//         />
-//       ))}
-//     </div>
-//   );
-// }
-
 export default function Home() {
   const [killCount, setKillCount] = useState("...");
   const [noDropRate, setNoDropRate] = useState("...");
   const [hoursWasted, setHoursWasted] = useState("...");
   const [profit, setProfit] = useState("...");
-  // const [moleImages, setMoleImages] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -73,12 +46,11 @@ export default function Home() {
       const profit = calculateProfit(count);
       //@ts-ignore
       setProfit(profit);
-      //@ts-ignore
-      // setMoleImages(printMoleImages(count));
     };
 
     fetchData();
   }, []);
+
   return (
     <div>
       <div className="-mt-8 flex flex-col justify-between items-center text-center w-full h-screen">
@@ -126,15 +98,6 @@ export default function Home() {
           <div className="text-4xl">{profit} M in loot</div>
         </div>
       </div>
-      {/* <div className="flex flex-col justify-start items-center text-center w-full h-screen space-y-4">
-        <div>
-          <div className="text-xl font-light mt-8 mb-8">
-            Here&apos;s a visualization of just how many times Moo has killed
-            mole
-          </div>
-          <div className="flex flex-wrap">{moleImages}</div>
-        </div>
-      </div> */}
     </div>
   );
 }
