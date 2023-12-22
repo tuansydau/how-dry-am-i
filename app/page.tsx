@@ -16,6 +16,17 @@ async function getKillCount() {
   return await playerData.latestSnapshot.data.bosses.giant_mole.kills;
 }
 
+async function getMoleRank() {
+  let playerData = await fetch(
+    "https://api.wiseoldman.net/v2/players/moo shu pork",
+    { headers: { "Content-Type": "application/json" } }
+  );
+  playerData = await playerData.json();
+
+  //@ts-ignore
+  return await playerData.latestSnapshot.data.bosses.giant_mole.rank;
+}
+
 function calculateDryRate(killCount: number) {
   return ((1 - 1 / 3000) ** killCount * 100).toFixed(2);
 }
@@ -33,6 +44,7 @@ export default function Home() {
   const [noDropRate, setNoDropRate] = useState("...");
   const [hoursWasted, setHoursWasted] = useState("...");
   const [profit, setProfit] = useState("...");
+  const [moleRank, setMoleRank] = useState("...");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,6 +58,8 @@ export default function Home() {
       const profit = calculateProfit(count);
       //@ts-ignore
       setProfit(profit);
+      const moleRank = await getMoleRank();
+      setMoleRank(moleRank);
     };
 
     fetchData();
@@ -56,14 +70,19 @@ export default function Home() {
       <div className="-mt-8 flex flex-col justify-between items-center text-center w-full h-screen">
         <div></div>
         <div>
-          <div className="flex justify-center mb-16">
-            <Image src="/baby_mole.webp" alt="" height={200} width={200} />
-          </div>
-          <div className="flex justify-center text-4xl">
-            Moo has a mole kill count of {killCount}
-          </div>
-          <div className="flex mt-2 font-light text-xl justify-center">
-            The chance that Moo has gotten this unlucky is {noDropRate}%
+          <div className="flex flex-col w-full items-center">
+            <div className="flex justify-center mb-16">
+              <Image src="/baby_mole.webp" alt="" height={200} width={200} />
+            </div>
+            <div className="flex justify-center text-4xl">
+              Moo has a mole kill count of {killCount}
+            </div>
+            <div className="flex mt-2 font-light text-xl justify-center">
+              The chance that Moo has gotten this unlucky is {noDropRate}%
+            </div>
+            <div className="flex mt-8 font-bold text-xl justify-center">
+              Rank {moleRank} btw
+            </div>
           </div>
         </div>
         <DownArrows />
