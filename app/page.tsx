@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import DownArrows from "@/components/DownArrows";
+import WatchIcon from "@/components/WatchIcon";
 
 async function getKillCount() {
   // Using hardcoded number for now because I'm getting rate limited
@@ -98,6 +99,11 @@ export default function Home() {
       <div className="flex flex-col justify-center items-center text-center w-full h-[200vh] space-y-4">
         <div>
           <div className="text-xl font-light mb-2">
+            <div className="flex w-full justify-center mb-16">
+              <div className="w-[200px] h-[200px]">
+                <WatchIcon />
+              </div>
+            </div>
             Moo usually gets about 70 kills per hour, which means that he has
             spent
           </div>
