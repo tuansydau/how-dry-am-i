@@ -71,7 +71,7 @@ export default function Home() {
         <div></div>
         <div>
           <div className="flex flex-col w-full items-center">
-            <div className="flex justify-center mb-16">
+            <div className="flex justify-center mt-16 mb-16">
               <Image src="/baby_mole.webp" alt="" height={200} width={200} />
             </div>
             <div className="flex justify-center text-4xl">
